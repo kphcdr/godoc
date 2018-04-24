@@ -2,8 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/cache"
-	"github.com/astaxie/beego/utils/captcha"
+	"showdoc/consts"
 )
 
 // Operations about Users
@@ -23,25 +22,16 @@ func (u *UserController) Info() {
 	u.ServeJSON()
 }
 
+
 // @Title CreateUser
 // @Description create users
 // @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {int} models.User.Id
 // @Failure 403 body is empty
-// @router /captch [get]
-func (u *UserController) Captch() {
-	store := cache.NewMemoryCache()
-	urlPrefix := "/captcha/"
-	cpt := captcha.NewWithFilter(urlPrefix, store)
-
-
-	str,_ := cpt.CreateCaptcha()
-	img := "http://localhost:8080" + urlPrefix +str + ".png"
-	json := map[string]string{"img": img}
-
-	u.Data["json"] = json
+// @router /register [post]
+func (u *UserController) Register() {
+	json := consts.Json{}
+	json.Set(10206,"验证码不正确")
+	u.Data["json"] =  json.VendorOk()
 	u.ServeJSON()
-	 //= urlPrefix + cpt_result + ".png"
-
-
 }

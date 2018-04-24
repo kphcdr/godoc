@@ -49,17 +49,17 @@ func init() {
 
 	beego.GlobalControllerRouter["showdoc/controllers:UserController"] = append(beego.GlobalControllerRouter["showdoc/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Captch",
-			Router: `/captch`,
+			Method: "Info",
+			Router: `/info`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["showdoc/controllers:UserController"] = append(beego.GlobalControllerRouter["showdoc/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Info",
-			Router: `/info`,
-			AllowHTTPMethods: []string{"get"},
+			Method: "Register",
+			Router: `/register`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 

@@ -18,12 +18,6 @@
                 <el-input type="password" auto-complete="off" v-model="confirm_password" :placeholder="$t('password_again')"></el-input>
               </el-form-item>
 
-              <el-form-item label="" >
-                <el-input type="text" auto-complete="off" v-model="v_code" :placeholder="$t('verification_code')" ></el-input>
-                <img v-bind:src="v_code_img" class="v_code_img"   v-on:click="change_v_code_img" >
-
-              </el-form-item>
-
                <el-form-item label="" >
                 <el-button type="primary" style="width:100%;" @click="onSubmit" >{{$t("register")}}</el-button>
               </el-form-item>
@@ -38,7 +32,7 @@
     </el-container>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
@@ -55,8 +49,6 @@ export default {
       username: '',
       password: '',
       confirm_password:'',
-      v_code: '',
-      v_code_img:DocConfig.server+'/api/common/verify'
     }
 
   },
@@ -70,7 +62,6 @@ export default {
           params.append('username', this.username);
           params.append('password', this.password);
           params.append('confirm_password', this.confirm_password);
-          params.append('v_code', this.v_code);
 
           that.axios.post(url, params)
             .then(function (response) {
@@ -80,13 +71,9 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             });
       },
-      change_v_code_img(){
-        var rand = '&rand='+Math.random();
-        this.v_code_img += rand ;
-      }
   },
   mounted() {
     /*给body添加类，设置背景色*/
@@ -108,9 +95,5 @@ export default {
 
 .center-card{
   text-align: center;
-}
-
-.v_code_img{
-  margin-top: 20px;
 }
 </style>
