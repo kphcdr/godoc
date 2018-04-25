@@ -6,7 +6,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 )
+type Base struct {
 
+}
 //初始化orm
 func MysqlInit() {
 	dbhost := beego.AppConfig.String("dbhost")
@@ -17,4 +19,5 @@ func MysqlInit() {
 	dsn := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8&loc=Asia%2FShanghai"
 	orm.RegisterDataBase("default", "mysql", dsn)
 	orm.RegisterModel(new(User))
+	orm.Debug = true
 }

@@ -26,5 +26,5 @@ func (u *Json) VendorError() interface{} {
 }
 
 func (u *Json) VendorOk() interface{} {
-	return map[string]interface{}{"error_code":0,"data":u.data}
+	return map[string]interface{}{"error_code":0,"data":u.data,"message":u.message}
 }
