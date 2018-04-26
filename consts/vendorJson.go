@@ -16,6 +16,10 @@ func (u *Json) SetCode(code int) {
 	u.code = code
 }
 
+func (u *Json) SetData(data interface{}) {
+	u.data = data
+}
+
 func (u *Json) Set(code int,message string) {
 	u.SetMessage(message)
 	u.SetCode(code)

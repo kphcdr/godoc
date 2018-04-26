@@ -17,7 +17,28 @@ type User struct {
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
 
+func GetOneUser(id int64) (bool,User) {
+	o := orm.NewOrm()
+	user := User{Id:id}
 
+	err := o.Read(&user)
+
+	if err == nil {
+		return true,user
+	} else {
+		return false,user
+	}
+
+}
+
+func (user *User) Format() map[string]interface{} {
+	ret :=make(map[string]interface{})
+	ret["id"] = user.Id
+	ret["email"] = user.Email
+	ret["username"] =user.Email
+
+	return ret
+}
 func (base *User) Create() (int64,error) {
 	o := orm.NewOrm()
 

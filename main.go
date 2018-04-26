@@ -21,6 +21,10 @@ func init() {
 	models.MysqlInit()
 	// session
 	beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.BConfig.WebConfig.Session.SessionProvider="file"
+	beego.BConfig.WebConfig.Session.SessionProviderConfig = "storage/session"
+
+
 	//
-	beego.SetLogger("file", `{"filename":"storage/logs/test.log","daily",true,"level":"debug"}`)
+	beego.SetLogger("file", `{"filename":"storage/logs/test.log","daily":true}`)
 }
