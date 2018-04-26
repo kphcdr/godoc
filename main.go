@@ -17,7 +17,10 @@ func main() {
 }
 
 func init() {
+	//数据库
 	models.MysqlInit()
+	// session
 	beego.BConfig.WebConfig.Session.SessionOn = true
+	//
 
 }

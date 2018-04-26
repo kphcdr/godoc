@@ -81,6 +81,7 @@ func (u *UserController) Login() {
 		u.Data["json"] =  json.VendorOk()
 	} else {
 		json.Set(10206,"用户名或密码错误")
+		beego.Notice("用户登录失败" + username)
 		u.Data["json"] =  json.VendorError()
 	}
 
