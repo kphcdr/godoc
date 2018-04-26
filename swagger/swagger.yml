@@ -21,8 +21,22 @@ paths:
       - in: formData
         name: item_type
         description: 项目类型 1常规项目  2单页项目
+        required: true
         type: integer
         format: int64
+      - in: formData
+        name: item_name
+        description: 项目名称
+        required: true
+        type: string
+      - in: formData
+        name: password
+        description: 查看密码
+        type: string
+      - in: formData
+        name: item_description
+        description: 项目描述
+        type: string
       responses:
         "200":
           description: '{int} models.User.Id'
@@ -51,19 +65,7 @@ paths:
       tags:
       - user
       description: get user info
-      operationId: UserController.userinfo
-      parameters:
-      - in: body
-        name: body
-        description: body for user content
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      responses:
-        "200":
-          description: '{int} models.User.Id'
-        "403":
-          description: body is empty
+      operationId: UserController.获取当前用户信息
   /user/login:
     post:
       tags:
@@ -71,17 +73,19 @@ paths:
       description: user login
       operationId: UserController.Login
       parameters:
-      - in: body
-        name: body
-        description: body for user content
+      - in: formData
+        name: username
+        description: 用户名，这里是邮箱
         required: true
-        schema:
-          $ref: '#/definitions/models.User'
+        type: string
+      - in: formData
+        name: password
+        description: 用户密码
+        required: true
+        type: string
       responses:
         "200":
           description: '{int} models.User.Id'
-        "403":
-          description: body is empty
   /user/register:
     post:
       tags:
@@ -89,17 +93,24 @@ paths:
       description: create users
       operationId: UserController.CreateUser
       parameters:
-      - in: body
-        name: body
-        description: body for user content
+      - in: formData
+        name: username
+        description: 用户名，这里是邮箱
         required: true
-        schema:
-          $ref: '#/definitions/models.User'
+        type: string
+      - in: formData
+        name: password
+        description: 密码
+        required: true
+        type: string
+      - in: formData
+        name: confirm_password
+        description: 重复输入密码
+        required: true
+        type: string
       responses:
         "200":
           description: '{int} models.User.Id'
-        "403":
-          description: body is empty
 definitions:
   models.User:
     title: User
@@ -121,7 +132,7 @@ definitions:
 tags:
 - name: user
   description: |
-    Operations about Users
+    用户模块
 - name: item
   description: |
     Operations about Users

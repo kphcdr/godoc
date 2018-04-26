@@ -6,33 +6,30 @@ import (
 	"showdoc/models"
 )
 
-// Operations about Users
+// 用户模块
 type UserController struct {
 	beego.Controller
 }
 
-// @Title userinfo
+// @Title 获取当前用户信息
 // @Description get user info
-// @Param	body		body 	models.User	true		"body for user content"
-// @Success 200 {int} models.User.Id
-// @Failure 403 body is empty
 // @router /info [post]
 func (u *UserController) Info() {
 	json := consts.Json{}
 	uid := u.GetSession(consts.SESSION_UID)
 	if uid == nil {
-		json.Set(10000,"用户未登录")
+		json.Set(10000, "用户未登录")
 		u.Data["json"] = json.VendorError()
 		u.ServeJSON()
 	} else {
 
-		ret,user := models.GetOneUser(uid.(int64))
+		ret, user := models.GetOneUser(uid.(int64))
 		if ret == true {
 			json.SetData(user.Format())
 			u.Data["json"] = json.VendorOk()
 			u.ServeJSON()
 		} else {
-			json.Set(10000,"用户未登录")
+			json.Set(10000, "用户未登录")
 			u.Data["json"] = json.VendorError()
 			u.ServeJSON()
 		}
@@ -44,15 +41,15 @@ func (u *UserController) Info() {
 
 // @Title CreateUser
 // @Description create users
-// @Param	body		body 	models.User	true		"body for user content"
+// @Param	username	formData 	string	true		"用户名，这里是邮箱"
+// @Param	password	formData 	string	true		"密码"
+// @Param	confirm_password	formData 	string	true		"重复输入密码"
 // @Success 200 {int} models.User.Id
-// @Failure 403 body is empty
 // @router /register [post]
 func (u *UserController) Register() {
 	username := u.GetString("username")
 	password := u.GetString("password")
 	confirmPassword := u.GetString("confirm_password")
-	println(username, password, confirmPassword)
 	json := consts.Json{}
 	if password != confirmPassword {
 		json.Set(10000, "两次密码不一致")
@@ -88,9 +85,9 @@ func (u *UserController) loginSuccess(user models.User) {
 
 // @Title Login
 // @Description user login
-// @Param	body		body 	models.User	true		"body for user content"
+// @Param	username		formData 	string	true		"用户名，这里是邮箱"
+// @Param	password		formData 	string	true		"用户密码"
 // @Success 200 {int} models.User.Id
-// @Failure 403 body is empty
 // @router /login [post]
 func (u *UserController) Login() {
 	username := u.GetString("username")
