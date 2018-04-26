@@ -18,4 +18,6 @@ func main() {
 
 func init() {
 	models.MysqlInit()
+	beego.BConfig.WebConfig.Session.SessionOn = true
+
 }

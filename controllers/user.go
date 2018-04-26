@@ -35,10 +35,12 @@ func (u *UserController) Register() {
 		return
 	}
 
+	var err error
+
 	user := new(models.User)
-	user.Name = username
+	user.Email = username
 	user.Password = models.CryptPassword(password)
-	err := user.Create()
+	user.Id,err = user.Create()
 	if err != nil {
 		json.Set(500,err.Error())
 		u.Data["json"] =  json.VendorError()
@@ -46,6 +48,9 @@ func (u *UserController) Register() {
 		return
 	}
 
+	u.SetSession("uid",user.Id)
+
+	println("session",u.GetSession("uid"))
 	json.Set(0,"操作成功")
 	u.Data["json"] = json.VendorOk()
 	u.ServeJSON()

@@ -6,26 +6,29 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
 	"fmt"
+	"time"
 )
 
 type User struct {
-	Id          int
-	Name        string
+	Id          int64
+	Email        string
 	Password	string
+	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
+	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
 
 
-func (base *User) Create() error {
+func (base *User) Create() (int64,error) {
 	o := orm.NewOrm()
 
-	_,err := o.Insert(base)
+	id ,err := o.Insert(base)
 	if err != nil {
 		beego.Error(err.Error())
 		err = fmt.Errorf("%s", "新增数据失败")
 
 	}
 
-	return err
+	return id,err
 }
 
 func CryptPassword(password string) string {
