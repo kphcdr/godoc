@@ -37,7 +37,7 @@ func (u *UserController) Register() {
 
 	var err error
 
-	user := new(models.User)
+	var user models.User
 	user.Email = username
 	user.Password = models.CryptPassword(password)
 	user.Id,err = user.Create()
@@ -48,9 +48,8 @@ func (u *UserController) Register() {
 		return
 	}
 
-	u.SetSession("uid",user.Id)
+	u.loginSuccess(user)
 
-	println("session",u.GetSession("uid"))
 	json.Set(0,"操作成功")
 	u.Data["json"] = json.VendorOk()
 	u.ServeJSON()
@@ -58,9 +57,32 @@ func (u *UserController) Register() {
 
 }
 
+func (u *UserController) loginSuccess(user models.User) {
+	u.SetSession(consts.SESSION_UID,user.Id)
+}
+
+// @Title Login
+// @Description user login
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.User.Id
+// @Failure 403 body is empty
+// @router /login [post]
 func (u *UserController) Login() {
+	username := u.GetString("username")
+	password := u.GetString("password")
+
+	password = models.CryptPassword(password)
+	ret,user := models.Login(username,password)
 	json := consts.Json{}
-	json.Set(10206,"验证码不正确")
-	u.Data["json"] =  json.VendorOk()
+
+	if ret == true {
+		json.Set(0,user.Email+"登录成功")
+		u.loginSuccess(user)
+		u.Data["json"] =  json.VendorOk()
+	} else {
+		json.Set(10206,"用户名或密码错误")
+		u.Data["json"] =  json.VendorError()
+	}
+
 	u.ServeJSON()
 }

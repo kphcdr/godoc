@@ -31,6 +31,14 @@ func (base *User) Create() (int64,error) {
 	return id,err
 }
 
+func Login(email string,password string) (bool,User) {
+	o := orm.NewOrm()
+	var user User
+
+	err := o.QueryTable(user).Filter("Email", email).Filter("Password", password).One(&user)
+	return err != orm.ErrNoRows, user
+}
+
 func CryptPassword(password string) string {
 	md5Ctx := md5.New()
 	md5Ctx.Write([]byte(password))
