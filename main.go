@@ -22,5 +22,5 @@ func init() {
 	// session
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	//
-
+	beego.SetLogger("file", `{"filename":"storage/logs/test.log","daily",true,"level":"debug"}`)
 }
