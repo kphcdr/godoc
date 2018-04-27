@@ -25,7 +25,7 @@ func (u *UserController) Info() {
 
 		ret, user := models.GetOneUser(uid.(int64))
 		if ret == true {
-			json.SetData(user.Format())
+			json.SetData(user)
 			u.Data["json"] = json.VendorOk()
 			u.ServeJSON()
 		} else {

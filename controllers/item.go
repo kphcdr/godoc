@@ -6,7 +6,7 @@ import (
 	"showdoc/models"
 )
 
-// Operations about Users
+// 我的项目
 type ItemController struct {
 	beego.Controller
 }
@@ -16,8 +16,7 @@ type ItemController struct {
 // @Title MyList
 // @Description mylist
 // @Param	body		body 	models.User	true		"body for user content"
-// @Success 200 {int} models.User.Id
-// @Failure 403 body is empty
+// @Success 200 {int} models.item
 // @router /myList [get]
 func (u *ItemController) MyList() {
 	json := consts.Json{}
@@ -32,17 +31,10 @@ func (u *ItemController) MyList() {
 
 		userId :=uid.(int64)
 		myItem := models.GetMyItem(userId)
-		data := [len(myItem)]map[string]interface{}
 
-		//var data = [](map[string]interface{})
-		for i, value := range myItem {
-			println(i)
-			if value != nil {
-				data[i] = value.Format()
-			}
-		}
 
-		json.SetData(data)
+
+		json.SetData(myItem)
 		u.Data["json"] = json.VendorOk()
 		u.ServeJSON()
 	}

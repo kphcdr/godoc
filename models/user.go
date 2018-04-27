@@ -10,9 +10,9 @@ import (
 )
 
 type User struct {
-	Id          int64
-	Email        string
-	Password	string
+	Id          int64	`json:"id"`
+	Email        string `json:"email"`
+	Password	string	`json:"-"`
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
@@ -31,14 +31,6 @@ func GetOneUser(id int64) (bool,User) {
 
 }
 
-func (user *User) Format() map[string]interface{} {
-	ret :=make(map[string]interface{})
-	ret["id"] = user.Id
-	ret["email"] = user.Email
-	ret["username"] =user.Email
-
-	return ret
-}
 func (base *User) Create() (int64,error) {
 	o := orm.NewOrm()
 

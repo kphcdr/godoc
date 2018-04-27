@@ -8,11 +8,11 @@ import (
 )
 
 type Item struct {
-	Id          int64
-	Title 	string
-	Description string
+	Id          int64 `json:"item_id"`
+	Title 	string `json:"item_name"`
+	Description string `json:"item_description"`
 	UserId	int64
-	Password	string
+	Password	string `json:"-"`
 	Type	int
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
@@ -28,28 +28,6 @@ func (this *Item) Create() (int64,error) {
 	}
 
 	return id,err
-}
-
-func (item *Item) Format() (struct{
-	item_id int64
-	item_name string
-	item_description string
-}) {
-	//ret :=make(map[string]interface{})
-	//println(item.Id)
-	var test struct{
-		item_id int64
-		item_name string
-		item_description string
-	}
-
-	test.item_id = 2
-	test.item_name = "name"
-	test.item_description = "desc"
-
-
-
-	return test
 }
 
 func GetMyItem(uid int64) ([]*Item) {
