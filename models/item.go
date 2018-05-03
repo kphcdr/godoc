@@ -57,7 +57,7 @@ func (this *Item) GetItemInfo() (ItemInfo) {
 func (this *ItemInfo) GetMenu()(Menu) {
 	var menu Menu
 	menu.Page = GetPagesByItemId(this.Id)
-
+	menu.Catalogs = GetCatalogsByItemId(this.Id)
 	return menu
 }
 

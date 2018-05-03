@@ -13,3 +13,12 @@ type Catalogs struct {
 	Page []Page `json:"page"`
 	Catalogs []Catalogs `json:"catalogs"`
 }
+
+func GetCatalogsByItemId(id int64) ([]Catalogs) {
+
+	println(id)
+
+	var catalogs []Catalogs
+
+	return catalogs
+}
