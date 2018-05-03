@@ -11,7 +11,7 @@ type Item struct {
 	Id          int64 `json:"item_id"`
 	Title 	string `json:"item_name"`
 	Description string `json:"item_description"`
-	UserId	int64
+	UserId	int
 	Password	string `json:"-"`
 	Type	int
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
@@ -34,28 +34,11 @@ type ItemInfo struct {
 }
 type Menu struct {
 	Page []Page `json:"pages"`
-	Catalogs []Category `json:"catalogs"`
+	Catalogs []Catalogs `json:"catalogs"`
 }
 
-type Category struct {
-	CatId int `json:"cat_id"`
-	CatName string `json:"cat_name"`
-	ItemId int `json:"item_id"`
-	SNumber int `json:"s_number"`
-	Addtime string `json:"addtime"`
-	ParentCatId int `json:"parent_cat_id"`
-	Level int `json:"level"`
-	Page []Page `json:"page"`
-	Category []Category `json:"catalogs"`
-}
 
-type Page struct {
-	PageId int `json:"page_id"`
-	AuthorUid int `json:"author_uid"`
-	CatId int `json:"cat_id"`
-	PageTitle string `json:"page_title"`
-	Addtime string `json:"addtime"`
-}
+
 
 type UnreadCount struct {
 
@@ -67,15 +50,15 @@ func (this *Item) GetItemInfo() (ItemInfo) {
 	itemInfo.IsLogin = true
 	itemInfo.ItemPermn = true
 	itemInfo.ItemCreator = true
-	var pages = []Page{}
-	var category = []Category{}
-	itemInfo.Menu.Page = pages
-	itemInfo.Menu.Catalogs = category
-	//itemInfo.Menu.Page = append(itemInfo.Menu.Page, Page{})
-
-
-
+	itemInfo.Menu = itemInfo.GetMenu()
 	return itemInfo
+}
+
+func (this *ItemInfo) GetMenu()(Menu) {
+	var menu Menu
+	menu.Page = GetPagesByItemId(this.Id)
+
+	return menu
 }
 
 
@@ -91,7 +74,7 @@ func (this *Item) Create() (int64,error) {
 	return id,err
 }
 
-func GetMyItem(uid int64) ([]*Item) {
+func GetMyItem(uid int) ([]*Item) {
 	o := orm.NewOrm()
 	var item []*Item
 	num,err :=o.QueryTable("item").Filter("user_id", uid).All(&item)

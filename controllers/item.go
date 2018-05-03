@@ -46,7 +46,7 @@ func (u *ItemController) MyList() {
 	if uid == nil {
 		u.Abort("403")
 	} else {
-		userId :=uid.(int64)
+		userId :=uid.(int)
 		myItem := models.GetMyItem(userId)
 
 		json.SetData(myItem)
@@ -71,7 +71,7 @@ func (u *ItemController) Add() {
 
 	var err error
 	var json consts.Json
-	var userId int64
+	var userId int
 	uid := u.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		json.Set(10000, "用户未登录")
@@ -79,7 +79,7 @@ func (u *ItemController) Add() {
 		u.ServeJSON()
 		return
 	} else {
-		userId = uid.(int64)
+		userId = uid.(int)
 	}
 
 	item_type,_ := u.GetInt("item_type")
