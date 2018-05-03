@@ -11,7 +11,28 @@ type ItemController struct {
 	beego.Controller
 }
 
+// @Title item info
+// @Description item info
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.item
+// @router /info [post]
+func (u *ItemController) Info() {
 
+	json := consts.Json{}
+	id,_ := u.GetInt64("item_id")
+	println(id)
+	uid := u.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		u.Abort("403")
+	} else {
+		_,item := models.GetOneItem(id)
+		iteminfo := item.GetItemInfo()
+		json.SetData(iteminfo)
+		u.Data["json"] = json.VendorOk()
+		u.ServeJSON()
+	}
+
+}
 
 // @Title MyList
 // @Description mylist
@@ -20,19 +41,13 @@ type ItemController struct {
 // @router /myList [get]
 func (u *ItemController) MyList() {
 	json := consts.Json{}
-	//var data [0]int
 
 	uid := u.GetSession(consts.SESSION_UID)
 	if uid == nil {
-		json.Set(10000, "用户未登录")
-		u.Data["json"] = json.VendorError()
-		u.ServeJSON()
+		u.Abort("403")
 	} else {
-
 		userId :=uid.(int64)
 		myItem := models.GetMyItem(userId)
-
-
 
 		json.SetData(myItem)
 		u.Data["json"] = json.VendorOk()

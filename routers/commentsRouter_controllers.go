@@ -17,6 +17,14 @@ func init() {
 
 	beego.GlobalControllerRouter["showdoc/controllers:ItemController"] = append(beego.GlobalControllerRouter["showdoc/controllers:ItemController"],
 		beego.ControllerComments{
+			Method: "Info",
+			Router: `/info`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:ItemController"] = append(beego.GlobalControllerRouter["showdoc/controllers:ItemController"],
+		beego.ControllerComments{
 			Method: "MyList",
 			Router: `/myList`,
 			AllowHTTPMethods: []string{"get"},
