@@ -13,7 +13,7 @@ type Page struct {
 	CatId int `json:"cat_id"`
 	PageTitle string `json:"page_title"`
 	PageContent string `json:"page_content"`
-	CreatedAt time.Time `orm:"auto_now_add;type(datetime)";,json:"addtime"`
+	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 }
 
 func GetPagesByItemId(id int64) ([]*Page) {
