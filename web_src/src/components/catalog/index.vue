@@ -110,31 +110,31 @@ export default {
           .then(function (response) {
             if (response.data.error_code === 0 ) {
               var Info = response.data.data ;
-              
+
               //创建上级目录选项
               var Info2 = Info.slice(0) ;
               var no_cat = {"cat_id":0 ,"cat_name":that.$t("none")} ;
               Info2.unshift(no_cat);
               that.catalogs_level_2 = Info2 ;
-              
+
               var cat_array = [] ;
               for (var i = 0; i < Info.length; i++) {
-                
+
                 Info[i]['cat_name'] = Info[i]['cat_name'];
                 cat_array.push(Info[i]);
-                if (Info[i]['sub'].length > 0 ) {
-                  for (var j = 0; j < Info[i]['sub'].length; j++) {
-                    Info[i]['sub'][j]['cat_name'] = ' -- ' + Info[i]['sub'][j]['cat_name'];
-                    cat_array.push(Info[i]['sub'][j]);
+                if (Info[i]['pages'].length > 0 ) {
+                  for (var j = 0; j < Info[i]['pages'].length; j++) {
+                    Info[i]['pages'][j]['cat_name'] = ' -- ' + Info[i]['pages'][j]['cat_name'];
+                    cat_array.push(Info[i]['pages'][j]);
                   };
                 };
-                
+
               };
               that.catalogs =  cat_array;
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -160,15 +160,15 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             })
             .catch(function (error) {
               console.log(error);
             });
       },
       edit(row){
-         var temp={};  
-         temp = JSON.parse(JSON.stringify(row));  
+         var temp={};
+         temp = JSON.parse(JSON.stringify(row));
         if (temp.cat_name) {
           temp.cat_name = temp.cat_name.replace(' -- ','');
         };
@@ -201,8 +201,8 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
-            }); 
+
+            });
           })
 
       },

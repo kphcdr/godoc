@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego"
 	"fmt"
 )
 
@@ -15,6 +16,28 @@ type Catalogs struct {
 	ParentCatId int `json:"parent_cat_id"`
 	Level int `json:"level"`
 	Page []*Page `json:"pages" orm:"-"`
+}
+
+func (this *Catalogs) Save() {
+	o := orm.NewOrm()
+
+	//判断是新建还是更新
+	if this.Id == 0 {
+		_ ,err := o.Insert(this)
+		if err != nil {
+			beego.Error(err.Error())
+			err = fmt.Errorf("%s", "新增数据失败")
+		}
+	} else {
+		catalogs := Catalogs{Id: this.Id}
+		if o.Read(&catalogs) == nil {
+			catalogs = *this
+			catalogs.Id = this.Id
+			if num, err := o.Update(&catalogs); err == nil {
+				fmt.Println(num)
+			}
+		}
+	}
 }
 
 func GetCatalogsByItemId(id int64) ([]*Catalogs) {

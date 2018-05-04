@@ -25,6 +25,11 @@ func init() {
 				&controllers.ItemController{},
 			),
 		),
+		beego.NSNamespace("/catalog",
+			beego.NSInclude(
+				&controllers.CatalogController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

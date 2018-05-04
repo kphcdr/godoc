@@ -7,6 +7,22 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
+		beego.ControllerComments{
+			Method: "CatListGroup",
+			Router: `/catListGroup`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
+		beego.ControllerComments{
+			Method: "Save",
+			Router: `/save`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["showdoc/controllers:ItemController"] = append(beego.GlobalControllerRouter["showdoc/controllers:ItemController"],
 		beego.ControllerComments{
 			Method: "Add",
