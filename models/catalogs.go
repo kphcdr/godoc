@@ -18,6 +18,20 @@ type Catalogs struct {
 	Page []*Page `json:"pages" orm:"-"`
 }
 
+func GetOneCataLogs(id int64) (bool,Catalogs) {
+	o := orm.NewOrm()
+	catalogs := Catalogs{Id:id}
+
+	err := o.Read(&catalogs)
+
+	if err == nil {
+		return true,catalogs
+	} else {
+		return false,catalogs
+	}
+
+}
+
 func (this *Catalogs) Save() {
 	o := orm.NewOrm()
 
@@ -38,6 +52,16 @@ func (this *Catalogs) Save() {
 			}
 		}
 	}
+}
+
+func (this *Catalogs) Delete() (error) {
+	o := orm.NewOrm()
+
+
+	 _,err := o.Delete(this)
+
+	 return err
+
 }
 
 func GetCatalogsByItemId(id int64) ([]*Catalogs) {

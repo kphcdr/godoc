@@ -18,8 +18,26 @@ type CatalogController struct {
 // @router /delete [post]
 func (this *CatalogController) Delete() {
 	json := consts.Json{}
-	this.Data["json"] = json.VendorOk()
-	this.ServeJSON()
+	id,_ := this.GetInt64("cat_id")
+	uid := this.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		this.Abort("403")
+	} else {
+		ret,catalogs := models.GetOneCataLogs(id)
+		if ret {
+			 err := catalogs.Delete()
+			 if err == nil {
+			 	json.Set(0,"删除成功")
+			 } else {
+			 	json.Set(404,"删除失败")
+			 }
+		} else {
+			json.Set(404,"数据不存在")
+		}
+		this.Data["json"] = json.VendorOk()
+
+		this.ServeJSON()
+	}
 }
 
 // @Title  分类列表
