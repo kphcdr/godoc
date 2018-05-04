@@ -17,6 +17,14 @@ func init() {
 
 	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
 		beego.ControllerComments{
+			Method: "ChildCatList",
+			Router: `/childCatList`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
+		beego.ControllerComments{
 			Method: "Delete",
 			Router: `/delete`,
 			AllowHTTPMethods: []string{"post"},
@@ -25,8 +33,24 @@ func init() {
 
 	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
 		beego.ControllerComments{
+			Method: "GetDefaultCat",
+			Router: `/getDefaultCat`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
+		beego.ControllerComments{
 			Method: "Save",
 			Router: `/save`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:CatalogController"] = append(beego.GlobalControllerRouter["showdoc/controllers:CatalogController"],
+		beego.ControllerComments{
+			Method: "SecondCatList",
+			Router: `/secondCatList`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})

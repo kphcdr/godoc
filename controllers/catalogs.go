@@ -94,9 +94,9 @@ func (this *CatalogController) Save() {
 		var parent_id int
 
 		if parent_cat_id == 0 {
-			parent_id = 0
+			parent_id = 2
 		} else {
-			parent_id = 1
+			parent_id = 3
 		}
 		catalog.ParentCatId = parent_cat_id
 		catalog.Level = parent_id
@@ -107,3 +107,68 @@ func (this *CatalogController) Save() {
 		this.ServeJSON()
 	}
 }
+
+// @Title  分类列表
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /secondCatList [post]
+func (this *CatalogController) SecondCatList() {
+	/**
+	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
+	 */
+	itemId,_ := this.GetInt64("item_id")
+	uid := this.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		this.Abort("403")
+	} else {
+		data := models.GetSecondCatalogsByItemId(itemId,2)
+
+		json := consts.Json{}
+		json.SetData(data)
+		this.Data["json"] = json.VendorOk()
+		this.ServeJSON()
+
+	}
+}
+
+// @Title  分类列表
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /childCatList [post]
+func (this *CatalogController) ChildCatList() {
+	/**
+	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
+	 */
+	itemId,_ := this.GetInt64("item_id")
+	uid := this.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		this.Abort("403")
+	} else {
+		data := models.GetSecondCatalogsByItemId(itemId,3)
+
+		json := consts.Json{}
+		json.SetData(data)
+		this.Data["json"] = json.VendorOk()
+		this.ServeJSON()
+	}
+}
+
+// @Title  分类列表
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /getDefaultCat [post]
+func (this *CatalogController) GetDefaultCat() {
+	var temp struct {
+		default_cat_id2 int
+		default_cat_id3	int
+	}
+
+	json := consts.Json{}
+	json.SetData(temp)
+	this.Data["json"] = json.VendorOk()
+	this.ServeJSON()
+}
+
