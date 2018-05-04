@@ -61,7 +61,16 @@ func (this *CatalogController) Save() {
 		catalog.SNumber = s_number
 		catalog.ItemId = item_id
 		catalog.Id = cat_id
+
+		var parent_id int
+
+		if parent_cat_id == 0 {
+			parent_id = 0
+		} else {
+			parent_id = 1
+		}
 		catalog.ParentCatId = parent_cat_id
+		catalog.Level = parent_id
 		catalog.Save()
 
 		json.SetData(catalog)

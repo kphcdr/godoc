@@ -33,7 +33,7 @@ func (this *Catalogs) Save() {
 		if o.Read(&catalogs) == nil {
 			catalogs = *this
 			catalogs.Id = this.Id
-			if num, err := o.Update(&catalogs); err == nil {
+			if num, err := o.Update(&catalogs,"item_id","name","s_number","parent_cat_id","level"); err == nil {
 				fmt.Println(num)
 			}
 		}
@@ -51,7 +51,6 @@ func GetCatalogsByItemId(id int64) ([]*Catalogs) {
 	for _,value := range catalogs {
 		value.Page = GetPagesByCatId(value.Id)
 	}
-
 
 
 	return catalogs
