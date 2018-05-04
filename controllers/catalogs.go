@@ -11,6 +11,17 @@ type CatalogController struct {
 	beego.Controller
 }
 
+// @Title  删除分类
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /delete [post]
+func (this *CatalogController) Delete() {
+	json := consts.Json{}
+	this.Data["json"] = json.VendorOk()
+	this.ServeJSON()
+}
+
 // @Title  分类列表
 // @Description 分类列表
 // @Param	body		body 	models.User	true		"body for user content"
