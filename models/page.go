@@ -4,6 +4,7 @@ import (
 	"time"
 	"github.com/astaxie/beego/orm"
 	"fmt"
+	"github.com/astaxie/beego"
 )
 
 type Page struct {
@@ -11,6 +12,7 @@ type Page struct {
 	AuthorUid int `json:"author_uid"`
 	ItemId int `json:"item_id"`
 	CatId int `json:"cat_id"`
+	SNumber int `json:"s_number"`
 	PageTitle string `json:"page_title"`
 	PageContent string `json:"page_content"`
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
@@ -36,4 +38,41 @@ func GetPagesByCatId(id int64) ([]*Page) {
 	fmt.Printf("Returned Rows Num: %d, %s, %d", num, err,id)
 
 	return pages
+}
+
+
+func (this *Page) SavePage() {
+	o := orm.NewOrm()
+
+	//判断是新建还是更新
+	if this.Id == 0 {
+		_ ,err := o.Insert(this)
+		if err != nil {
+			beego.Error(err.Error())
+			err = fmt.Errorf("%s", "新增数据失败")
+		}
+	} else {
+		catalogs := Page{Id: this.Id}
+		if o.Read(&catalogs) == nil {
+			catalogs = *this
+			catalogs.Id = this.Id
+			if num, err := o.Update(&catalogs,"item_id","name","s_number","parent_cat_id","level"); err == nil {
+				fmt.Println(num)
+			}
+		}
+	}
+}
+
+func GetOnePage(id int) (bool,Page) {
+	o := orm.NewOrm()
+	item := Page{Id:id}
+
+	err := o.Read(&item)
+
+	if err == nil {
+		return true,item
+	} else {
+		return false,item
+	}
+
 }

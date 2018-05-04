@@ -30,6 +30,11 @@ func init() {
 				&controllers.CatalogController{},
 			),
 		),
+		beego.NSNamespace("/page",
+			beego.NSInclude(
+				&controllers.PageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
