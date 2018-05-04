@@ -11,6 +11,8 @@ type ItemController struct {
 	beego.Controller
 }
 
+
+
 // @Title item info
 // @Description item info
 // @Param	body		body 	models.User	true		"body for user content"
@@ -26,8 +28,8 @@ func (u *ItemController) Info() {
 		u.Abort("403")
 	} else {
 		_,item := models.GetOneItem(id)
-		iteminfo := item.GetItemInfo()
-		json.SetData(iteminfo)
+		itemInfo := item.GetItemInfo()
+		json.SetData(itemInfo)
 		u.Data["json"] = json.VendorOk()
 		u.ServeJSON()
 	}
@@ -46,7 +48,7 @@ func (u *ItemController) MyList() {
 	if uid == nil {
 		u.Abort("403")
 	} else {
-		userId :=uid.(int)
+		userId :=uid.(int64)
 		myItem := models.GetMyItem(userId)
 
 		json.SetData(myItem)

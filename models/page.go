@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+	"github.com/astaxie/beego/orm"
+	"fmt"
+)
 
 type Page struct {
 	Id int `json:"page_id"`
@@ -9,14 +13,17 @@ type Page struct {
 	CatId int `json:"cat_id"`
 	PageTitle string `json:"page_title"`
 	PageContent string `json:"page_content"`
-	CreatedAt time.Time `orm:"auto_now_add;type(datetime)",json:"addtime"`
+	CreatedAt time.Time `orm:"auto_now_add;type(datetime)";,json:"addtime"`
 }
 
-func GetPagesByItemId(id int64) ([]Page) {
+func GetPagesByItemId(id int64) ([]*Page) {
 
-	println(id)
+	o := orm.NewOrm()
+	var pages []*Page
 
-	var pages []Page
+	num,err :=o.QueryTable("page").Filter("item_id", id).All(&pages)
+	fmt.Printf("Returned Rows Num: %d, %s, %d", num, err,id)
 
 	return pages
+
 }

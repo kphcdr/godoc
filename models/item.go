@@ -27,18 +27,15 @@ type ItemInfo struct {
 	DefaultCatId3	string `json:"default_cat_id3"`
 	UnreadCount		UnreadCount `json:"unread_count"`
 	ItemType		int		`json:"item_type"`
-	Menu 	Menu `json:"menu"`
 	IsLogin bool `json:"is_login"`
 	ItemPermn bool `json:"ItemPermn"`
 	ItemCreator bool `json:"ItemCreator"`
+	Menu 	Menu `json:"menu"`
 }
 type Menu struct {
-	Page []Page `json:"pages"`
-	Catalogs []Catalogs `json:"catalogs"`
+	Page []*Page `json:"pages"`
+	Catalogs []*Catalogs `json:"catalogs"`
 }
-
-
-
 
 type UnreadCount struct {
 
@@ -74,7 +71,7 @@ func (this *Item) Create() (int64,error) {
 	return id,err
 }
 
-func GetMyItem(uid int) ([]*Item) {
+func GetMyItem(uid int64) ([]*Item) {
 	o := orm.NewOrm()
 	var item []*Item
 	num,err :=o.QueryTable("item").Filter("user_id", uid).All(&item)
