@@ -22,7 +22,6 @@ func (u *ItemController) Info() {
 
 	json := consts.Json{}
 	id,_ := u.GetInt64("item_id")
-	println(id)
 	uid := u.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		u.Abort("403")

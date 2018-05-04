@@ -14,7 +14,7 @@ type Catalogs struct {
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 	ParentCatId int `json:"parent_cat_id"`
 	Level int `json:"level"`
-	Page []*Page `json:"page" orm:"-"`
+	Page []*Page `json:"pages" orm:"-"`
 }
 
 func GetCatalogsByItemId(id int64) ([]*Catalogs) {
@@ -23,7 +23,12 @@ func GetCatalogsByItemId(id int64) ([]*Catalogs) {
 	var catalogs []*Catalogs
 
 	num,err :=o.QueryTable("catalogs").Filter("item_id", id).All(&catalogs)
-	fmt.Printf("Returned Rows Num: %d, %s, %d", num, err,id)
+	fmt.Printf("catalogs Returned Rows Num: %d, %s, %d", num, err,id)
+
+	for _,value := range catalogs {
+		value.Page = GetPagesByCatId(value.Id)
+	}
+
 
 
 	return catalogs

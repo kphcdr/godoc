@@ -19,5 +19,5 @@ func MysqlInit() {
 	dsn := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8&loc=Asia%2FShanghai"
 	orm.RegisterDataBase("default", "mysql", dsn)
 	orm.RegisterModel(new(User),new(Item),new(Page),new(Catalogs))
-	orm.Debug = true
+	//orm.Debug = true
 }
