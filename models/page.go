@@ -56,7 +56,7 @@ func (this *Page) SavePage() {
 		if o.Read(&catalogs) == nil {
 			catalogs = *this
 			catalogs.Id = this.Id
-			if num, err := o.Update(&catalogs,"item_id","name","s_number","parent_cat_id","level"); err == nil {
+			if num, err := o.Update(&catalogs,"item_id","author_uid","cat_id","page_title","page_content","s_number"); err == nil {
 				fmt.Println(num)
 			}
 		}

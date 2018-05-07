@@ -162,9 +162,13 @@ func (this *CatalogController) ChildCatList() {
 // @router /getDefaultCat [post]
 func (this *CatalogController) GetDefaultCat() {
 	var temp struct {
-		default_cat_id2 int
-		default_cat_id3	int
+		Default_cat_id2 string `json:"default_cat_id2"`
+		Default_cat_id3	string `json:"default_cat_id3"`
 	}
+
+	temp.Default_cat_id2 = ""
+	temp.Default_cat_id3 = ""
+
 
 	json := consts.Json{}
 	json.SetData(temp)
