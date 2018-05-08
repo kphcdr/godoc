@@ -109,3 +109,17 @@ func (u *UserController) Login() {
 
 	u.ServeJSON()
 }
+
+// @Title Login
+// @Description user login
+// @Param	username		formData 	string	true		"用户名，这里是邮箱"
+// @Param	password		formData 	string	true		"用户密码"
+// @Success 200 {int} models.User.Id
+// @router /logout [get]
+func (this *UserController) Logout() {
+	json := consts.Json{}
+	this.DestroySession()
+
+	this.Data["json"] = json.VendorOk()
+	this.ServeJSON()
+}
