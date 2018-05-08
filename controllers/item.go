@@ -93,7 +93,11 @@ func (u *ItemController) Add() {
 		u.ServeJSON()
 		return
 	} else {
-		userId = uid.(int)
+		value, ok := uid.(int64)
+		if ok {
+			userId = int(value)
+		}
+
 	}
 
 	item_type,_ := u.GetInt("item_type")

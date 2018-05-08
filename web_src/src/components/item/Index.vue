@@ -24,7 +24,7 @@
 
           </div>
 
-        
+
       </el-row>
 
       </el-container>
@@ -57,7 +57,7 @@
     </el-container>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
@@ -181,7 +181,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           });
     },
     feedback(){
@@ -201,16 +201,16 @@ export default {
 
           //当鼠标放在项目上时将浮现设置和置顶图标
           $(".item-thumbnail").mouseover(function(){
-            $(this).find(".item-setting").show();
-            $(this).find(".item-top").show();
-            $(this).find(".item-down").show();
+            //$(this).find(".item-setting").show();
+            //$(this).find(".item-top").show();
+            //$(this).find(".item-down").show();
           });
 
           //当鼠标离开项目上时将隐藏设置和置顶图标
           $(".item-thumbnail").mouseout(function(){
-            $(this).find(".item-setting").hide();
-            $(this).find(".item-top").hide();
-            $(this).find(".item-down").hide();
+            //$(this).find(".item-setting").hide();
+            //$(this).find(".item-top").hide();
+            //$(this).find(".item-down").hide();
           });
       });
     },
@@ -221,9 +221,9 @@ export default {
     },
     click_item_top(item_id ,old_top){
       if (old_top) {
-        var action = 'cancel'; 
+        var action = 'cancel';
       }else{
-        var action = 'top'; 
+        var action = 'top';
       }
       var that = this ;
       var url = DocConfig.server+'/api/item/top';
@@ -237,7 +237,7 @@ export default {
           }else{
             that.$alert(response.data.error_message);
           }
-          
+
         });
     },
     logout(){
@@ -255,7 +255,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           });
     },
 
@@ -267,7 +267,7 @@ export default {
   },
   mounted () {
     this.get_item_list();
-    
+
   },
   beforeDestroy(){
     this.$message.closeAll();
