@@ -33,8 +33,9 @@ func (u *ItemController) Info() {
 	}  else {
 		itemInfo.IsLogin = true
 	}
+
 	//是否可以编辑
-	if item.UserId == uid {
+	if int64(item.UserId) == uid {
 		itemInfo.ItemCreator = true
 		itemInfo.ItemPermn = true
 	}
