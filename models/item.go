@@ -44,9 +44,9 @@ func (this *Item) GetItemInfo() (ItemInfo) {
 	var itemInfo ItemInfo
 	itemInfo.Id = this.Id
 	itemInfo.ItemType = this.Type
-	itemInfo.IsLogin = true
-	itemInfo.ItemPermn = true
-	itemInfo.ItemCreator = true
+	itemInfo.IsLogin = false
+	itemInfo.ItemPermn = false
+	itemInfo.ItemCreator = false
 	itemInfo.Menu = itemInfo.GetMenu()
 	return itemInfo
 }

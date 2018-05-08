@@ -66,13 +66,12 @@ func (this *PageController) Save() {
 func (this *PageController) Info() {
 	json := consts.Json{}
 	id,_ := this.GetInt("page_id")
-	uid := this.GetSession(consts.SESSION_UID)
-	if uid == nil {
-		this.Abort("403")
-	} else {
-		_,item := models.GetOnePage(id)
-		json.SetData(item)
-		this.Data["json"] = json.VendorOk()
-		this.ServeJSON()
-	}
+	//uid := this.GetSession(consts.SESSION_UID)
+
+	_,item := models.GetOnePage(id)
+
+	json.SetData(item)
+	this.Data["json"] = json.VendorOk()
+	this.ServeJSON()
+
 }

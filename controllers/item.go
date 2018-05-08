@@ -23,15 +23,27 @@ func (u *ItemController) Info() {
 	json := consts.Json{}
 	id,_ := u.GetInt64("item_id")
 	uid := u.GetSession(consts.SESSION_UID)
+
+	_,item := models.GetOneItem(id)
+	itemInfo := item.GetItemInfo()
+
+	//是否登录
 	if uid == nil {
-		u.Abort("403")
-	} else {
-		_,item := models.GetOneItem(id)
-		itemInfo := item.GetItemInfo()
-		json.SetData(itemInfo)
-		u.Data["json"] = json.VendorOk()
-		u.ServeJSON()
+		itemInfo.IsLogin = false
+	}  else {
+		itemInfo.IsLogin = true
 	}
+	//是否可以编辑
+	if item.UserId == uid {
+		itemInfo.ItemCreator = true
+		itemInfo.ItemPermn = true
+	}
+
+
+	json.SetData(itemInfo)
+	u.Data["json"] = json.VendorOk()
+	u.ServeJSON()
+
 
 }
 
