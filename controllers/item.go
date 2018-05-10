@@ -98,7 +98,6 @@ func (u *ItemController) Add() {
 			userId = int(value)
 		}
 	}
-	return
 
 	item_type,_ := u.GetInt("item_type")
 	item_name := u.GetString("item_name")
