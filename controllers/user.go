@@ -16,14 +16,14 @@ type UserController struct {
 // @router /info [post]
 func (u *UserController) Info() {
 	json := consts.Json{}
-	uid := u.GetSession(consts.SESSION_UID)
-	if uid == nil {
+	uid,err := consts.IsLogin(u.Controller)
+	if err  != nil{
 		json.Set(10000, "用户未登录")
 		u.Data["json"] = json.VendorError()
 		u.ServeJSON()
 	} else {
 
-		ret, user := models.GetOneUser(uid.(int64))
+		ret, user := models.GetOneUser(uid)
 		if ret == true {
 			json.SetData(user)
 			u.Data["json"] = json.VendorOk()

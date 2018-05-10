@@ -18,7 +18,7 @@ type CatalogController struct {
 // @router /delete [post]
 func (this *CatalogController) Delete() {
 	json := consts.Json{}
-	id,_ := this.GetInt64("cat_id")
+	id,_ := this.GetInt("cat_id")
 	uid := this.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		this.Abort("403")
@@ -50,7 +50,7 @@ func (this *CatalogController) CatListGroup() {
 	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
 	 */
 	json := consts.Json{}
-	id,_ := this.GetInt64("item_id")
+	id,_ := this.GetInt("item_id")
 	uid := this.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		this.Abort("403")
@@ -82,7 +82,7 @@ func (this *CatalogController) Save() {
 		item_id,_ := this.GetInt("item_id")
 		cat_name := this.GetString("cat_name")
 		s_number,_ := this.GetInt("s_number")
-		cat_id,_  := this.GetInt64("cat_id")
+		cat_id,_  := this.GetInt("cat_id")
 		parent_cat_id,_ := this.GetInt("parent_cat_id")
 		var catalog models.Catalogs
 
@@ -117,7 +117,7 @@ func (this *CatalogController) SecondCatList() {
 	/**
 	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
 	 */
-	itemId,_ := this.GetInt64("item_id")
+	itemId,_ := this.GetInt("item_id")
 	uid := this.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		this.Abort("403")
@@ -141,7 +141,7 @@ func (this *CatalogController) ChildCatList() {
 	/**
 	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
 	 */
-	itemId,_ := this.GetInt64("item_id")
+	itemId,_ := this.GetInt("item_id")
 	uid := this.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		this.Abort("403")

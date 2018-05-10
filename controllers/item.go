@@ -21,7 +21,7 @@ type ItemController struct {
 func (u *ItemController) Info() {
 
 	json := consts.Json{}
-	id,_ := u.GetInt64("item_id")
+	id,_ := u.GetInt("item_id")
 	uid := u.GetSession(consts.SESSION_UID)
 
 	_,item := models.GetOneItem(id)
@@ -35,7 +35,7 @@ func (u *ItemController) Info() {
 	}
 
 	//是否可以编辑
-	if int64(item.UserId) == uid {
+	if item.UserId == uid {
 		itemInfo.ItemCreator = true
 		itemInfo.ItemPermn = true
 	}
@@ -56,12 +56,12 @@ func (u *ItemController) Info() {
 func (u *ItemController) MyList() {
 	json := consts.Json{}
 
-	uid := u.GetSession(consts.SESSION_UID)
-	if uid == nil {
+	uid ,err := consts.IsLogin(u.Controller)
+	if err != nil {
 		u.Abort("403")
 	} else {
-		userId :=uid.(int64)
-		myItem := models.GetMyItem(userId)
+
+		myItem := models.GetMyItem(uid)
 
 		json.SetData(myItem)
 		u.Data["json"] = json.VendorOk()
@@ -97,8 +97,8 @@ func (u *ItemController) Add() {
 		if ok {
 			userId = int(value)
 		}
-
 	}
+	return
 
 	item_type,_ := u.GetInt("item_type")
 	item_name := u.GetString("item_name")

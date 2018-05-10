@@ -8,7 +8,7 @@ import (
 )
 
 type Catalogs struct {
-	Id int64 `json:"cat_id"`
+	Id int `json:"cat_id"`
 	Name string `json:"cat_name"`
 	ItemId int `json:"item_id"`
 	SNumber int `json:"s_number"`
@@ -18,7 +18,7 @@ type Catalogs struct {
 	Page []*Page `json:"pages" orm:"-"`
 }
 
-func GetOneCataLogs(id int64) (bool,Catalogs) {
+func GetOneCataLogs(id int) (bool,Catalogs) {
 	o := orm.NewOrm()
 	catalogs := Catalogs{Id:id}
 
@@ -64,7 +64,7 @@ func (this *Catalogs) Delete() (error) {
 
 }
 
-func GetCatalogsByItemId(id int64) ([]*Catalogs) {
+func GetCatalogsByItemId(id int) ([]*Catalogs) {
 
 	o := orm.NewOrm()
 	var catalogs []*Catalogs
@@ -80,7 +80,7 @@ func GetCatalogsByItemId(id int64) ([]*Catalogs) {
 	return catalogs
 }
 
-func GetSecondCatalogsByItemId(id int64,level int) ([]*Catalogs) {
+func GetSecondCatalogsByItemId(id int,level int) ([]*Catalogs) {
 
 	o := orm.NewOrm()
 	var catalogs []*Catalogs

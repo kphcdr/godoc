@@ -8,7 +8,7 @@ import (
 )
 
 type Item struct {
-	Id          int64 `json:"item_id"`
+	Id          int `json:"item_id"`
 	Title 	string `json:"item_name"`
 	Description string `json:"item_description"`
 	UserId	int
@@ -19,7 +19,7 @@ type Item struct {
 }
 
 type ItemInfo struct {
-	Id          int64 `json:"item_id"`
+	Id          int `json:"item_id"`
 	Title 	string `json:"item_domain"`
 	IsArchived string `json:"is_archived"`
 	DefaultPageId	string `json:"default_page_id"`
@@ -59,7 +59,7 @@ func (this *ItemInfo) GetMenu()(Menu) {
 }
 
 
-func (this *Item) Create() (int64,error) {
+func (this *Item) Create() (int,error) {
 	o := orm.NewOrm()
 
 	id ,err := o.Insert(this)
@@ -68,10 +68,10 @@ func (this *Item) Create() (int64,error) {
 		err = fmt.Errorf("%s", "新增数据失败")
 	}
 
-	return id,err
+	return int(id),err
 }
 
-func GetMyItem(uid int64) ([]*Item) {
+func GetMyItem(uid int) ([]*Item) {
 	o := orm.NewOrm()
 	var item []*Item
 	num,err :=o.QueryTable("item").Filter("user_id", uid).All(&item)
@@ -80,7 +80,7 @@ func GetMyItem(uid int64) ([]*Item) {
 	return item
 }
 
-func GetOneItem(id int64) (bool,Item) {
+func GetOneItem(id int) (bool,Item) {
 	o := orm.NewOrm()
 	item := Item{Id:id}
 
@@ -93,7 +93,7 @@ func GetOneItem(id int64) (bool,Item) {
 	}
 
 }
-func GetMyItemInfo(id int64) (ItemInfo,error) {
+func GetMyItemInfo(id int) (ItemInfo,error) {
 	o := orm.NewOrm()
 	item := Item{Id:id}
 	itemInfo := ItemInfo{}

@@ -10,14 +10,14 @@ import (
 )
 
 type User struct {
-	Id          int64	`json:"id"`
+	Id          int	`json:"id"`
 	Email        string `json:"email"`
 	Password	string	`json:"-"`
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
 
-func GetOneUser(id int64) (bool,User) {
+func GetOneUser(id int) (bool,User) {
 	o := orm.NewOrm()
 	user := User{Id:id}
 
@@ -31,7 +31,7 @@ func GetOneUser(id int64) (bool,User) {
 
 }
 
-func (base *User) Create() (int64,error) {
+func (base *User) Create() (int,error) {
 	o := orm.NewOrm()
 
 	id ,err := o.Insert(base)
@@ -41,7 +41,7 @@ func (base *User) Create() (int64,error) {
 
 	}
 
-	return id,err
+	return int(id),err
 }
 
 func Login(email string,password string) (bool,User) {

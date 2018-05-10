@@ -18,7 +18,7 @@ type Page struct {
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 }
 
-func GetPagesByItemId(id int64) ([]*Page) {
+func GetPagesByItemId(id int) ([]*Page) {
 
 	o := orm.NewOrm()
 	var pages []*Page
@@ -29,7 +29,7 @@ func GetPagesByItemId(id int64) ([]*Page) {
 	return pages
 }
 
-func GetPagesByCatId(id int64) ([]*Page) {
+func GetPagesByCatId(id int) ([]*Page) {
 
 	o := orm.NewOrm()
 	var pages []*Page
