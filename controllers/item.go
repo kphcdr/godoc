@@ -11,7 +11,34 @@ type ItemController struct {
 	beego.Controller
 }
 
+// @Title  删除item
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /delete [post]
+func (this *ItemController) Delete() {
+	json := consts.Json{}
+	id,_ := this.GetInt("item_id")
+	uid := this.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		this.Abort("403")
+	} else {
+		ret,item := models.GetOneItem(id)
+		if ret {
+			err := item.Delete()
+			if err == nil {
+				json.Set(0,"删除成功")
+			} else {
+				json.Set(404,"删除失败")
+			}
+		} else {
+			json.Set(404,"数据不存在")
+		}
+		this.Data["json"] = json.VendorOk()
 
+		this.ServeJSON()
+	}
+}
 
 // @Title item info
 // @Description item info

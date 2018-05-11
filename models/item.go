@@ -104,3 +104,13 @@ func GetMyItemInfo(id int) (ItemInfo,error) {
 
 	return itemInfo,err
 }
+
+func (this *Item) Delete() (error) {
+	o := orm.NewOrm()
+
+
+	_,err := o.Delete(this)
+
+	return err
+
+}
