@@ -20,18 +20,22 @@ type PageController struct {
 // @router /uploadImg [post]
 func (this *PageController) UploadImg() {
 
-	var json consts.Json
 	var ext string
-	var filename string
-	f, h, _ := this.GetFile("myfile")                  //获取上传的文件
+	var filename string //文件名称
+	var fileUrl string //文件 url
+	savePath := beego.AppConfig.String("upload_path")
+	f, h, _ := this.GetFile("editormd-image-file")                  //获取上传的文件
 
 	ext = h.Filename[strings.LastIndex( h.Filename, "."):]
 	filename = util.UniqueId() + ext
-	path := "./web/upload/" + filename  //文件目录
+
+	path := "."+savePath + "/" + filename  //文件目录
+	fileUrl = this.Ctx.Request.URL.Host + savePath + "/" + filename
+
 	f.Close()                                          //关闭上传的文件，不然的话会出现临时文件不能清除的情况
-	this.SaveToFile("myfile", path)                    //存文件
+	this.SaveToFile("editormd-image-file", path)                    //存文件
 	println(path)
-	this.Data["json"] = json.VendorOk()
+	this.Data["json"] = map[string]interface{}{"url":fileUrl,"success":1}
 	this.ServeJSON()
 
 }
