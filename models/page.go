@@ -76,3 +76,12 @@ func GetOnePage(id int) (bool,Page) {
 	}
 
 }
+
+func (this *Page) Delete() (error) {
+	o := orm.NewOrm()
+
+	_,err := o.Delete(this)
+
+	return err
+
+}

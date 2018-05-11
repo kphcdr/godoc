@@ -104,3 +104,32 @@ func (this *PageController) Info() {
 	this.ServeJSON()
 
 }
+
+// @Title  删除item
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.catalogs
+// @router /delete [post]
+func (this *PageController) Delete() {
+	json := consts.Json{}
+	id,_ := this.GetInt("page_id")
+	uid := this.GetSession(consts.SESSION_UID)
+	if uid == nil {
+		this.Abort("403")
+	} else {
+		ret,page := models.GetOnePage(id)
+		if ret {
+			err := page.Delete()
+			if err == nil {
+				json.Set(0,"删除成功")
+			} else {
+				json.Set(404,"删除失败")
+			}
+		} else {
+			json.Set(404,"数据不存在")
+		}
+		this.Data["json"] = json.VendorOk()
+
+		this.ServeJSON()
+	}
+}
