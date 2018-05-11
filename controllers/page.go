@@ -4,11 +4,36 @@ import (
 	"github.com/astaxie/beego"
 	"showdoc/consts"
 	"showdoc/models"
+	"strings"
+	"beego_blog/util"
 )
 
 // 分类模块
 type PageController struct {
 	beego.Controller
+}
+
+// @Title  分类列表
+// @Description 分类列表
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.page
+// @router /uploadImg [post]
+func (this *PageController) UploadImg() {
+
+	var json consts.Json
+	var ext string
+	var filename string
+	f, h, _ := this.GetFile("myfile")                  //获取上传的文件
+
+	ext = h.Filename[strings.LastIndex( h.Filename, "."):]
+	filename = util.UniqueId() + ext
+	path := "./web/upload/" + filename  //文件目录
+	f.Close()                                          //关闭上传的文件，不然的话会出现临时文件不能清除的情况
+	this.SaveToFile("myfile", path)                    //存文件
+	println(path)
+	this.Data["json"] = json.VendorOk()
+	this.ServeJSON()
+
 }
 
 // @Title  分类列表
