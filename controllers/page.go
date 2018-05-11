@@ -5,7 +5,7 @@ import (
 	"showdoc/consts"
 	"showdoc/models"
 	"strings"
-	"beego_blog/util"
+	"showdoc/helper"
 )
 
 // 分类模块
@@ -27,7 +27,7 @@ func (this *PageController) UploadImg() {
 	f, h, _ := this.GetFile("editormd-image-file")                  //获取上传的文件
 
 	ext = h.Filename[strings.LastIndex( h.Filename, "."):]
-	filename = util.UniqueId() + ext
+	filename = helper.UniqueId() + ext
 
 	path := "."+savePath + "/" + filename  //文件目录
 	fileUrl = this.Ctx.Request.URL.Host + savePath + "/" + filename
