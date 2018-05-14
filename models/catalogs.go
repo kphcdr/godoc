@@ -80,12 +80,12 @@ func GetCatalogsByItemId(id int) ([]*Catalogs) {
 	return catalogs
 }
 
-func GetChildCatalogsByCatid(id int,level int) ([]*Catalogs) {
+func GetChildCatalogsByCatid(id int) ([]*Catalogs) {
 
 	o := orm.NewOrm()
 	var catalogs []*Catalogs
 
-	num,err :=o.QueryTable("catalogs").Filter("parent_cat_id", id).Filter("level",level).All(&catalogs)
+	num,err :=o.QueryTable("catalogs").Filter("parent_cat_id", id).All(&catalogs)
 	fmt.Printf("catalogs Returned Rows Num: %d, %s, %d", num, err,id)
 
 	for _,value := range catalogs {

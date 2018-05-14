@@ -39,6 +39,11 @@ func init() {
 				&controllers.PageController{},
 			),
 		),
+		beego.NSNamespace("/template",
+			beego.NSInclude(
+				&controllers.TemplateController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

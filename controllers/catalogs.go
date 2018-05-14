@@ -146,7 +146,7 @@ func (this *CatalogController) ChildCatList() {
 	if uid == nil {
 		this.Abort("403")
 	} else {
-		data := models.GetChildCatalogsByCatid(cat_id,3)
+		data := models.GetChildCatalogsByCatid(cat_id)
 
 		json := consts.Json{}
 		json.SetData(data)

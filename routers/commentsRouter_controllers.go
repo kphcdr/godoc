@@ -119,6 +119,30 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["showdoc/controllers:TemplateController"] = append(beego.GlobalControllerRouter["showdoc/controllers:TemplateController"],
+		beego.ControllerComments{
+			Method: "Delete",
+			Router: `/delete`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:TemplateController"] = append(beego.GlobalControllerRouter["showdoc/controllers:TemplateController"],
+		beego.ControllerComments{
+			Method: "GetList",
+			Router: `/getList`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["showdoc/controllers:TemplateController"] = append(beego.GlobalControllerRouter["showdoc/controllers:TemplateController"],
+		beego.ControllerComments{
+			Method: "Save",
+			Router: `/save`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["showdoc/controllers:UserController"] = append(beego.GlobalControllerRouter["showdoc/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "Info",
