@@ -23,7 +23,7 @@ func GetPagesByItemId(id int) ([]*Page) {
 	o := orm.NewOrm()
 	var pages []*Page
 
-	num,err :=o.QueryTable("page").Filter("item_id", id).All(&pages)
+	num,err :=o.QueryTable("page").Filter("item_id", id).Filter("cat_id",0).All(&pages)
 	fmt.Printf("Returned Rows Num: %d, %s, %d", num, err,id)
 
 	return pages

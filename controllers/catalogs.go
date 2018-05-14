@@ -141,12 +141,12 @@ func (this *CatalogController) ChildCatList() {
 	/**
 	{"error_code":0,"data":[{"cat_id":"3","cat_name":"tt","item_id":"3","s_number":"99","addtime":"2018-05-04 13:43:34","parent_cat_id":"0","level":"2","sub":[]}]}
 	 */
-	itemId,_ := this.GetInt("item_id")
+	cat_id,_ := this.GetInt("cat_id")
 	uid := this.GetSession(consts.SESSION_UID)
 	if uid == nil {
 		this.Abort("403")
 	} else {
-		data := models.GetSecondCatalogsByItemId(itemId,3)
+		data := models.GetChildCatalogsByCatid(cat_id,3)
 
 		json := consts.Json{}
 		json.SetData(data)

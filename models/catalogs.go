@@ -80,6 +80,22 @@ func GetCatalogsByItemId(id int) ([]*Catalogs) {
 	return catalogs
 }
 
+func GetChildCatalogsByCatid(id int,level int) ([]*Catalogs) {
+
+	o := orm.NewOrm()
+	var catalogs []*Catalogs
+
+	num,err :=o.QueryTable("catalogs").Filter("parent_cat_id", id).Filter("level",level).All(&catalogs)
+	fmt.Printf("catalogs Returned Rows Num: %d, %s, %d", num, err,id)
+
+	for _,value := range catalogs {
+		value.Page = GetPagesByCatId(value.Id)
+	}
+
+
+	return catalogs
+}
+
 func GetSecondCatalogsByItemId(id int,level int) ([]*Catalogs) {
 
 	o := orm.NewOrm()
