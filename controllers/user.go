@@ -123,3 +123,41 @@ func (this *UserController) Logout() {
 	this.Data["json"] = json.VendorOk()
 	this.ServeJSON()
 }
+
+// @Title Login
+// @Description user login
+// @Param	username		formData 	string	true		"用户名，这里是邮箱"
+// @Param	password		formData 	string	true		"用户密码"
+// @Success 200 {int} models.User.Id
+// @router /resetPassword [post]
+func (this *UserController) ResetPassword() {
+	json := consts.Json{}
+
+	password := this.GetString("password")
+	new_password := this.GetString("new_password")
+
+	uid,err := consts.IsLogin(this.Controller)
+	if err != nil {
+		this.Abort("403")
+	} else {
+		_,user := models.GetOneUser(uid)
+
+		println(models.CryptPassword(password),user.Password)
+
+		if(models.CryptPassword(password) == user.Password) {
+			user.Password = models.CryptPassword(new_password)
+			user.Save()
+			this.Data["json"] = json.VendorOk()
+			this.ServeJSON()
+		} else {
+
+			json.Set(404,"原密码错误")
+			this.Data["json"] = json.VendorError()
+			this.ServeJSON()
+
+		}
+
+	}
+
+
+}

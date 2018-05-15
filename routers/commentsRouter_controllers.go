@@ -175,4 +175,12 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["showdoc/controllers:UserController"] = append(beego.GlobalControllerRouter["showdoc/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "ResetPassword",
+			Router: `/resetPassword`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 }

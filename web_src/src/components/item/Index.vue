@@ -185,7 +185,7 @@ export default {
           });
     },
     feedback(){
-      window.open('https://github.com/star7th/showdoc/issues');
+      window.open('https://github.com/kphcdr/godoc/issues');
     },
     item_top_class(top){
       if (top) {

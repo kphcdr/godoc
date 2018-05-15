@@ -13,7 +13,7 @@ type User struct {
 	Id          int	`json:"id"`
 	Email        string `json:"email"`
 	Password	string	`json:"-"`
-	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
+	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
 
@@ -56,4 +56,26 @@ func CryptPassword(password string) string {
 	md5Ctx := md5.New()
 	md5Ctx.Write([]byte(password))
 	return hex.EncodeToString(md5Ctx.Sum(nil))
+}
+
+func (this *User) Save() {
+	o := orm.NewOrm()
+
+	//判断是新建还是更新
+	if this.Id == 0 {
+		_ ,err := o.Insert(this)
+		if err != nil {
+			beego.Error(err.Error())
+			err = fmt.Errorf("%s", "新增数据失败")
+		}
+	} else {
+		user := User{Id: this.Id}
+		if o.Read(&user) == nil {
+			user = *this
+			user.Id = this.Id
+			if num, err := o.Update(&user,"password","email"); err == nil {
+				fmt.Println(num)
+			}
+		}
+	}
 }

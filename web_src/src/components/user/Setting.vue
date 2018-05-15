@@ -7,12 +7,12 @@
           <template>
             <el-button type="text" class="goback-btn " ><router-link to="/item/index">{{$t('goback')}}</router-link></el-button>
             <el-tabs  value="first" type="card">
-            
+
               <el-tab-pane :label="$t('modify_password')" name="first">
 
                 <el-form  status-icon  label-width="0px" class="passwordForm" v-model="passwordForm">
                   <el-form-item label="" >
-                    <el-input type="text" auto-complete="off" v-model="passwordForm.username" placeholder="" :disabled="true"></el-input>
+                    <el-input type="text" auto-complete="off" v-model="passwordForm.email" placeholder="" :disabled="true"></el-input>
                   </el-form-item>
                   <el-form-item label="" >
                     <el-input type="password" auto-complete="off" :placeholder="$t('old_password')" v-model="passwordForm.password"></el-input>
@@ -37,7 +37,7 @@
     </el-container>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       passwordForm:{
-        username:'',
+        email:'',
         password:'',
         new_password:''
       },
@@ -79,7 +79,7 @@ export default {
             if (response.data.error_code === 0 ) {
               var userInfo = response.data.data
               that.userInfo =  userInfo;
-              that.passwordForm.username = userInfo.username;
+              that.passwordForm.email = userInfo.email;
               that.emailForm.email = userInfo.email ;
               var status = that.$t("status")+':';
               if (userInfo.email.length > 0 ) {
@@ -98,7 +98,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -119,7 +119,7 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             })
             .catch(function (error) {
               console.log(error);
@@ -141,7 +141,7 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             })
             .catch(function (error) {
               console.log(error);
@@ -150,7 +150,7 @@ export default {
   },
 
   mounted(){
-    
+
     this.get_user_info();
     /*给body添加类，设置背景色*/
     document.getElementsByTagName("body")[0].className="grey-bg";
@@ -160,7 +160,7 @@ export default {
     /*去掉添加的背景色*/
     document.body.removeAttribute("class","grey-bg");
   }
-  
+
 }
 </script>
 
