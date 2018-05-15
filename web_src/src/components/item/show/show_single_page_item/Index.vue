@@ -40,7 +40,7 @@
     :modal="false"
     class="text-center"
     >
-    
+
     <p>{{$t('item_address')}} :  <code >{{share_item_link}}</code></p>
         <p style="border-bottom: 1px solid #eee;"><img   id="" style="width:114px;height:114px;" :src="qr_item_link"> </p>
     <span slot="footer" class="dialog-footer">
@@ -56,7 +56,7 @@
 <style scoped>
 
   #page_md_content{
-    
+
        padding: 10px 10px 90px 10px;
       overflow: hidden;
       font-size: 11pt;
@@ -169,7 +169,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -183,9 +183,9 @@ export default {
     },
     share_item(){
       this.share_item_link =  this.getRootPath()+"#/"+this.item_info.item_id  ;
-      this.qr_item_link = DocConfig.server +'/api/common/qrcode&size=3&url='+encodeURIComponent(this.share_item_link);
+      this.qr_item_link = 'http://qr.liantu.com/api.php?gc=00ffff&text='+encodeURIComponent(this.share_item_link);
       this.dialogVisible = true;
-      
+
     },
     AdaptToMobile(){
       var doc_container = document.getElementById('doc-container') ;

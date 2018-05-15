@@ -33,11 +33,11 @@
     :modal="false"
     class="text-center"
     >
-    
+
     <p>{{$t('item_page_address')}} : <code >{{share_page_link}}</code>
     </p>
         <p style="border-bottom: 1px solid #eee;"><img  id="qr-page-link" style="width:114px;height:114px;" :src="qr_page_link"> </p>
-        
+
       <p >{{$t('single_page_address')}} : <code id="share-single-link">{{share_single_link}}</code>
       </p>
         <p style="border-bottom: 1px solid #eee;"><img  id="qr-single-link" style="width:114px;height:114px;" :src="qr_single_link"> </p>
@@ -56,7 +56,7 @@
 
 <style scoped>
   .page-bar{
-   
+
   }
 
 </style>
@@ -92,8 +92,8 @@
       var page_id = this.page_id > 0 ? this.page_id : 0 ;
       this.share_page_link = this.getRootPath()+"#/"+this.item_id +'?page_id='+page_id ;
       this.share_single_link= this.getRootPath()+"#/page/"+page_id ;
-      this.qr_page_link = DocConfig.server +'/api/common/qrcode&size=3&url='+encodeURIComponent(this.share_page_link);
-      this.qr_single_link = DocConfig.server +'/api/common/qrcode&size=3&url='+encodeURIComponent(this.share_single_link);
+      this.qr_page_link = 'http://qr.liantu.com/api.php?gc=00ffff&text='+encodeURIComponent(this.share_page_link);
+      this.qr_single_link = 'http://qr.liantu.com/api.php?gc=00ffff&text='+encodeURIComponent(this.share_single_link);
       this.dialogVisible = true;
     },
     dropdown_callback(data){
@@ -121,18 +121,18 @@
         that.axios.post(url, params)
         .then(function (response) {
           if (response.data.error_code === 0 ) {
-            window.location.reload() 
+            window.location.reload()
           }else{
             that.$alert(response.data.error_message);
           }
-        }); 
+        });
       });
     },
   },
   mounted () {
     var that = this ;
     document.onkeydown=function(e){  //对整个页面文档监听 其键盘快捷键
-      var keyNum=window.event ? e.keyCode :e.which;  //获取被按下的键值 
+      var keyNum=window.event ? e.keyCode :e.which;  //获取被按下的键值
       if (keyNum == 69 && e.ctrlKey) {  //Ctrl +e 为编辑
         that.edit_page();
         e.preventDefault();

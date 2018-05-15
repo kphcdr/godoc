@@ -7,14 +7,14 @@
         <el-aside class="el-aside" id="left-side">
             <LeftMenu :get_page_content="get_page_content" :item_info="item_info" :search_item="search_item" v-if="item_info" ></LeftMenu>
         </el-aside>
-        
+
         <el-container class="right-side" id="right-side">
- 
+
 
           <el-header >
             <div class="header-left">
                  <i class="el-icon-menu header-left-btn" id="header-left-btn" @click="switch_menu"></i>
-            </div> 
+            </div>
 
             <div class="header-right">
               <!-- 登录的事情下 -->
@@ -38,11 +38,11 @@
                   <a href="https://www.showdoc.cc/help" target="_blank">{{$t('about_showdoc')}}</a>
               </div>
 
-            </div> 
+            </div>
 
 
           </el-header>
-          
+
           <el-main class="page_content_main" id="page_content_main">
              <div class="doc-title-box"  v-if="page_id">
                 <span id="doc-title-span" class="dn"></span>
@@ -52,13 +52,13 @@
 
           </el-main>
 
-          
+
         </el-container>
 
         <div class="page-bar" v-show="show_page_bar && item_info.ItemPermn && item_info.is_archived < 1 " >
           <PageBar v-if="page_id" :page_id="page_id" :item_id='item_info.item_id' :page_info="page_info"></PageBar>
         </div>
-        
+
       </el-container>
 
       <BackToTop  > </BackToTop>
@@ -70,7 +70,7 @@
     :modal="false"
     class="text-center"
     >
-    
+
     <p>项目地址：<code >{{share_item_link}}</code></p>
         <p style="border-bottom: 1px solid #eee;"><img id="" style="width:114px;height:114px;" :src="qr_item_link"> </p>
     <span slot="footer" class="dialog-footer">
@@ -79,7 +79,7 @@
   </el-dialog>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
@@ -133,7 +133,7 @@
             //loading.close();
             if (response.data.error_code === 0 ) {
               that.content = response.data.data.page_content ;
-              
+
               that.page_title = response.data.data.page_title ;
               that.page_info = response.data.data ;
               //切换变量让它重新加载、渲染子组件
@@ -141,11 +141,11 @@
               that.$nextTick(() => {
                 that.page_id = page_id ;
               });
-              
+
             }else{
               //that.$alert(response.data.error_message);
             }
-            
+
           });
     },
     dropdown_callback(data){
@@ -155,7 +155,7 @@
     },
     share_item(){
       this.share_item_link =  this.getRootPath()+"#/"+this.item_info.item_id  ;
-      this.qr_item_link = DocConfig.server +'/api/common/qrcode&size=3&url='+encodeURIComponent(this.share_item_link);
+      this.qr_item_link = 'http://qr.liantu.com/api.php?gc=00ffff&text='+encodeURIComponent(this.share_item_link);
       this.dialogVisible = true;
     },
     //根据屏幕宽度进行响应(应对移动设备的访问)
@@ -168,17 +168,17 @@
         var element = document.getElementById('left-side') ;
         element.style.display = 'block' ;
         var element = document.getElementById('right-side') ;
-        element.style.marginLeft = '300px'; 
+        element.style.marginLeft = '300px';
         var element = document.getElementById('page_content_main') ;
-        element.style.width = '800px' ; 
+        element.style.width = '800px' ;
     },
     hide_menu(){
         var element = document.getElementById('left-side') ;
         element.style.display = 'none';
         var element = document.getElementById('right-side') ;
-        element.style.marginLeft = '0px'; 
+        element.style.marginLeft = '0px';
         var element = document.getElementById('page_content_main') ;
-        element.style.width = '95%' ; 
+        element.style.width = '95%' ;
     },
     switch_menu(){
       var element = document.getElementById('left-side') ;
@@ -208,7 +208,7 @@
   .header-right{
     color: #333;
     line-height: 40px;
-    text-align: right; 
+    text-align: right;
     font-size: 12px;
     /*border: 1px solid #eee;*/
   }
@@ -254,7 +254,7 @@
 
   .header-left{
     float: left;
-    
+
   }
 
   .header-left-btn{
