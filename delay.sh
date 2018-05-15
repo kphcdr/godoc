@@ -14,5 +14,5 @@ ps -ef |grep "showdoc" | grep -v 'grep' | awk '{print $2}' | xargs kill -9
 
 echo "启动应用。。。"
 
-nohup /root/go/src/showdoc &
+nohup /root/go/src/showdoc/showdoc &
 
