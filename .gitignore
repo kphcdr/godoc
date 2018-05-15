@@ -9,3 +9,4 @@ web_src//test/e2e/reports/
 web_src/selenium-debug.log
 lastupdate.tmp
 showdoc
+nohup.out
