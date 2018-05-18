@@ -21,7 +21,6 @@ type Item struct {
 type ItemInfo struct {
 	Id          int `json:"item_id"`
 	Title 	string `json:"item_domain"`
-	Password string `json:"password"`
 	IsArchived string `json:"is_archived"`
 	DefaultPageId	string `json:"default_page_id"`
 	DefaultCatId2	string `json:"default_cat_id2"`

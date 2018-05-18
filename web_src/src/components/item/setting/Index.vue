@@ -13,24 +13,9 @@
 
             </el-tab-pane>
 
-
-            <el-tab-pane :label="$t('member_manage')" name="second">
-
-                <Member> </Member>
-
-            </el-tab-pane>
-
             <el-tab-pane :label="$t('advance_setting')" name="third">
 
                 <Advanced> </Advanced>
-
-            </el-tab-pane>
-
-            <el-tab-pane :label="$t('open_api')" name="four">
-
-                  <OpenApi> </OpenApi>
-                  
-                </el-form>
 
             </el-tab-pane>
 
@@ -40,23 +25,19 @@
     </el-container>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
 <script>
 
 import Info from '@/components/item/setting/Info'
-import Member from '@/components/item/setting/Member'
 import Advanced from '@/components/item/setting/Advanced'
-import OpenApi from '@/components/item/setting/OpenApi'
 export default {
   name: 'Login',
   components : {
     Info,
-    Member,
     Advanced,
-    OpenApi
   },
   data () {
     return {
@@ -81,7 +62,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -94,7 +75,7 @@ export default {
   },
 
   mounted(){
-    
+
   },
   beforeCreate() {
     /*给body添加类，设置背景色*/

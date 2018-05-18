@@ -3,19 +3,14 @@
     <p>
       <el-tooltip :content="$t('attorn_tips')" placement="top-start">
         <el-button class="a_button"  @click="dialogAttornVisible = true" >{{$t('attorn')}}</el-button>
-      </el-tooltip>   
-    </p>
-    <p>
-      <el-tooltip :content="$t('archive_tips')" placement="top-start">
-        <el-button class="a_button"  @click="dialogArchiveVisible = true" >{{$t('archive')}}</el-button>
-      </el-tooltip>   
+      </el-tooltip>
     </p>
 
     <p>
       <el-tooltip :content="$t('delete_tips')" placement="top-start">
         <el-button class="a_button"  @click="dialogDeleteVisible = true" >{{$t('delete')}}</el-button>
-      </el-tooltip>   
-    </p>  
+      </el-tooltip>
+    </p>
 
     <el-dialog :visible.sync="dialogAttornVisible" :modal="false">
       <el-form >
@@ -32,23 +27,6 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogArchiveVisible" :modal="false">
-      <el-form >
-          <el-form-item label="" >
-            <el-input type="password" :placeholder="$t('input_login_password')" v-model="archiveForm.password"></el-input>
-          </el-form-item>
-      </el-form>
-
-      <p class="tips">
-        {{$t('archive_tips2')}}
-
-      </p>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogArchiveVisible = false">{{$t('cancel')}}</el-button>
-        <el-button type="primary" @click="archive" >{{$t('archive')}}</el-button>
-      </div>
-    </el-dialog>
-
     <el-dialog :visible.sync="dialogDeleteVisible" :modal="false">
       <el-form >
           <el-form-item label="" >
@@ -57,7 +35,7 @@
       </el-form>
 
       <p class="tips">
-        <el-tag type="danger">{{$t('delete_tips')}}</el-tag>  
+        <el-tag type="danger">{{$t('delete_tips')}}</el-tag>
           </p>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogDeleteVisible = false">{{$t('cancel')}}</el-button>
@@ -112,11 +90,11 @@ export default {
               setTimeout(function(){
                 that.$router.push({path:'/item/index'});
               },2000);
-                
+
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -138,11 +116,11 @@ export default {
                 setTimeout(function(){
                   that.$router.push({path:'/item/index'});
                 },2000);
-                
+
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -166,11 +144,11 @@ export default {
                 setTimeout(function(){
                   that.$router.push({path:'/item/index'});
                 },2000);
-                
+
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -179,7 +157,7 @@ export default {
   },
 
   mounted(){
-   
+
   }
 }
 </script>

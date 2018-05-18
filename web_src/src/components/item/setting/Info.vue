@@ -9,10 +9,6 @@
         <el-input type="text" auto-complete="off" v-model="infoForm.item_description" placeholder="" ></el-input>
       </el-form-item>
 
-      <el-form-item :label="$t('visit_password')+':'">
-        <el-input type="password" auto-complete="off" :placeholder="$t('visit_password_description')" v-model="infoForm.password"></el-input>
-      </el-form-item>
-
        <el-form-item label="" >
         <el-button type="primary" style="width:100%;" @click="FormSubmit" >{{$t('submit')}}</el-button>
       </el-form-item>
@@ -52,7 +48,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -67,7 +63,6 @@ export default {
           params.append('item_name', this.infoForm.item_name);
           params.append('item_description', this.infoForm.item_description);
           params.append('item_domain', this.infoForm.item_domain);
-          params.append('password', this.infoForm.password);
 
           that.axios.post(url, params)
             .then(function (response) {
@@ -76,7 +71,7 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             })
             .catch(function (error) {
               console.log(error);
