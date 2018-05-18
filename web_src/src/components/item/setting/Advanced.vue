@@ -1,31 +1,10 @@
 <template>
   <div class="hello">
     <p>
-      <el-tooltip :content="$t('attorn_tips')" placement="top-start">
-        <el-button class="a_button"  @click="dialogAttornVisible = true" >{{$t('attorn')}}</el-button>
-      </el-tooltip>
-    </p>
-
-    <p>
       <el-tooltip :content="$t('delete_tips')" placement="top-start">
         <el-button class="a_button"  @click="dialogDeleteVisible = true" >{{$t('delete')}}</el-button>
       </el-tooltip>
     </p>
-
-    <el-dialog :visible.sync="dialogAttornVisible" :modal="false">
-      <el-form >
-          <el-form-item label="" >
-            <el-input  :placeholder="$t('attorn_username')" v-model="attornForm.username"></el-input>
-          </el-form-item>
-          <el-form-item label="" >
-            <el-input type="password" :placeholder="$t('input_login_password')"  v-model="attornForm.password" ></el-input>
-          </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogAttornVisible = false">{{$t('cancel')}}</el-button>
-        <el-button type="primary" @click="attorn" >{{$t('attorn')}}</el-button>
-      </div>
-    </el-dialog>
 
     <el-dialog :visible.sync="dialogDeleteVisible" :modal="false">
       <el-form >

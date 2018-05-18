@@ -8,8 +8,7 @@
               <h2></h2>
               <el-form-item label="" >
               <el-radio v-model="item_type" label="1">{{$t('item_type1')}}</el-radio>
-              <el-radio v-model="item_type" label="2">{{$t('item_type2')}}</el-radio>
-              &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.showdoc.cc/page/65391" target="_blank"><i class="el-icon-question"></i></a>
+
               </el-form-item>
 
 
@@ -19,24 +18,6 @@
 
               <el-form-item label="" >
                 <el-input type="text" auto-complete="off" :placeholder="$t('item_description')" v-model="item_description"></el-input>
-              </el-form-item>
-
-
-              <el-form-item label="" >
-                <el-input type="password" auto-complete="off" v-model="password"  :placeholder="$t('visit_password_placeholder')"></el-input>
-              </el-form-item>
-
-              <el-form-item label="" class="text-left">
-                 <el-checkbox v-model="show_copy" @change="show_copy_even">{{$t('copy_exists_item')}}</el-checkbox>
-                 <el-select v-model="copy_item_id" :placeholder="$t('please_choose')" v-if="show_copy" @change="choose_copy_item">
-                    <el-option
-                      v-for="item in itemList"
-                      :key="item.item_id"
-                      :label="item.item_name"
-                      :value="item.item_id">
-                    </el-option>
-                  </el-select>
-
               </el-form-item>
 
                <el-form-item label="" >
@@ -51,7 +32,7 @@
     </el-container>
 
     <Footer> </Footer>
-    
+
   </div>
 </template>
 
@@ -69,7 +50,6 @@ export default {
       item_name: '',
       item_description:'',
       item_domain: '',
-      password: '',
       show_copy:false,
       itemList:{},
       copy_item_id:""
@@ -93,7 +73,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           });
     },
     choose_copy_item(item_id){
@@ -123,7 +103,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           });
       },
   },

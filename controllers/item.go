@@ -175,29 +175,18 @@ func (u *ItemController) Add() {
 
 	var err error
 	var json consts.Json
-	var userId int
-	uid := u.GetSession(consts.SESSION_UID)
-	if uid == nil {
-		json.Set(10000, "用户未登录")
-		u.Data["json"] = json.VendorError()
-		u.ServeJSON()
-		return
-	} else {
-		value, ok := uid.(int64)
-		if ok {
-			userId = int(value)
-		}
+	userId,err := consts.IsLogin(u.Controller)
+	if err != nil {
+		u.Abort("403")
 	}
 
 	item_type,_ := u.GetInt("item_type")
 	item_name := u.GetString("item_name")
-	password := u.GetString("password")
 	item_description := u.GetString("item_description")
 
 	var item models.Item
 	item.Title = item_name
 	item.Type = item_type
-	item.Password = password
 	item.Description = item_description
 	item.UserId = userId
 	item.Id,err = item.Create()

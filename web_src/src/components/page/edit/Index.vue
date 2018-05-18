@@ -22,9 +22,7 @@
           <el-form-item :label="$t('s_number')+' : '">
             <el-input  :placeholder="$t('optional')" class="num" v-model="s_number"></el-input>
           </el-form-item>
-          <el-form-item label="" >
-            <el-button type="text" @click="ShowHistoryVersion">{{$t('history_version')}}</el-button>
-          </el-form-item>
+
 
           <el-form-item class="pull-right">
               <el-dropdown  @command="dropdown_callback" split-button type="primary" size="medium" trigger="click" @click="save">
@@ -55,7 +53,7 @@
 
       <Editormd v-bind:content="content" v-if="content" ref="Editormd"  type="editor" ></Editormd>
 
-        
+
       </el-row>
 
         <!-- 更多模板 -->
@@ -75,18 +73,18 @@
     <div class=""></div>
 <!-- 模板存放的地方 -->
 <div id="api-doc-templ"  ref="api_doc_templ" style="display:none">
-    
-**简要描述：** 
+
+**简要描述：**
 
 - 用户注册接口
 
-**请求URL：** 
+**请求URL：**
 - ` http://xx.com/api/user/register `
-  
-**请求方式：**
-- POST 
 
-**参数：** 
+**请求方式：**
+- POST
+
+**参数：**
 
 |参数名|必选|类型|说明|
 |:----    |:---|:----- |-----   |
@@ -96,7 +94,7 @@
 
  **返回示例**
 
-``` 
+```
   {
     "error_code": 0,
     "data": {
@@ -110,20 +108,20 @@
   }
 ```
 
- **返回参数说明** 
+ **返回参数说明**
 
 |参数名|类型|说明|
 |:-----  |:-----|-----                           |
 |groupid |int   |用户组id，1：超级管理员；2：普通用户  |
 
- **备注** 
+ **备注**
 
 - 更多返回错误代码请看首页的错误代码描述
 
 
 </div>
 <div id="database-doc-templ" ref="database_doc_templ" style="display:none">
-    
+
 -  用户表，储存用户信息
 
 |字段|类型|空|默认|注释|
@@ -223,7 +221,7 @@ export default {
             }else{
               that.$alert(response.data.error_message);
             }
-            
+
           })
           .catch(function (error) {
             console.log(error);
@@ -245,7 +243,7 @@ export default {
           }else{
             that.$alert(response.data.error_message);
           }
-          
+
         });
     },
     //获取三级目录
@@ -267,7 +265,7 @@ export default {
           }else{
             that.$alert(response.data.error_message);
           }
-          
+
         });
     },
     //获取默认该选中的目录
@@ -291,7 +289,7 @@ export default {
           }else{
             that.$alert(response.data.error_message);
           }
-          
+
         });
     },
     //插入数据到编辑器中。插入到光标处。如果参数is_cover为真，则清空后再插入(即覆盖)。
@@ -320,12 +318,12 @@ export default {
     //json转参数表格
     ShowJsonToTable(){
         let childRef = this.$refs.JsonToTable ;//获取子组件
-        childRef.dialogFormVisible = true ; 
+        childRef.dialogFormVisible = true ;
     },
     //json格式化
     ShowJsonBeautify(){
         let childRef = this.$refs.JsonBeautify ;//获取子组件
-        childRef.dialogFormVisible = true ; 
+        childRef.dialogFormVisible = true ;
     },
 
     ShowRunApi(){
@@ -334,13 +332,13 @@ export default {
     //更多模板、模板列表
     ShowTemplateList(){
         let childRef = this.$refs.TemplateList ;//获取子组件
-        childRef.show() ; 
+        childRef.show() ;
     },
 
     //展示历史版本
     ShowHistoryVersion(){
         let childRef = this.$refs.HistoryVersion ;//获取子组件
-        childRef.show() ; 
+        childRef.show() ;
     },
 
     save(){
@@ -351,7 +349,7 @@ export default {
       var cat_id = 0 ;
       if (that.cat_id2 > 0 ) {
         cat_id = that.cat_id2 ;
-      };     
+      };
       if (that.cat_id3 > 0 ) {
         cat_id = that.cat_id3 ;
       };
@@ -371,11 +369,11 @@ export default {
           if (response.data.error_code === 0 ) {
             //that.$message.success("加载成功");
             localStorage.removeItem("page_content");
-            that.$router.push({path:'/'+item_id,query:{page_id:response.data.data.page_id}}) ; 
+            that.$router.push({path:'/'+item_id,query:{page_id:response.data.data.page_id}}) ;
           }else{
             that.$alert(response.data.error_message);
           }
-          
+
         });
         //设置一个最长关闭时间
         setTimeout(() => {
@@ -384,7 +382,7 @@ export default {
     },
     goback(){
       var url = '/'+this.$route.params.item_id;
-      this.$router.push({path:url,query:{page_id:this.$route.params.page_id}}) ; 
+      this.$router.push({path:url,query:{page_id:this.$route.params.page_id}}) ;
     },
     dropdown_callback(data){
       if (data) {
@@ -409,7 +407,7 @@ export default {
               }else{
                 that.$alert(response.data.error_message);
               }
-              
+
             });
        });
     },
@@ -480,7 +478,7 @@ export default {
     var that = this ;
     this.page_id = this.$route.params.page_id ;
     this.copy_page_id = this.$route.query.copy_page_id ? this.$route.query.copy_page_id : '' ;
-    
+
     if (this.copy_page_id > 0 ) {
       this.get_page_content(this.copy_page_id);
     }
@@ -491,17 +489,17 @@ export default {
       this.content = this.$t("welcome_use_showdoc") ;
     }
     this.get_cat2(this.$route.params.item_id);
-    
+
     that.on_paste();
-    
+
     document.onkeydown=function(e){  //对整个页面文档监听 其键盘快捷键
-      var keyNum=window.event ? e.keyCode :e.which;  //获取被按下的键值 
+      var keyNum=window.event ? e.keyCode :e.which;  //获取被按下的键值
       if (keyNum == 83 && e.ctrlKey) {  //Ctrl +S 为保存
         that.save();
         e.preventDefault();
       };
     }
-    
+
   }
 }
 </script>
