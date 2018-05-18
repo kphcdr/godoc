@@ -12,15 +12,16 @@ type Item struct {
 	Title 	string `json:"item_name"`
 	Description string `json:"item_description"`
 	UserId	int
-	Password	string `json:"-"`
+	Password	string `json:"password"`
 	Type	int
-	CreatedAt time.Time `orm:"auto_now_add;type(datetime)"`
+	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 	UpdatedAt time.Time `orm:"auto_now;type(datetime)"`
 }
 
 type ItemInfo struct {
 	Id          int `json:"item_id"`
 	Title 	string `json:"item_domain"`
+	Password string `json:"password"`
 	IsArchived string `json:"is_archived"`
 	DefaultPageId	string `json:"default_page_id"`
 	DefaultCatId2	string `json:"default_cat_id2"`
@@ -113,4 +114,26 @@ func (this *Item) Delete() (error) {
 
 	return err
 
+}
+
+func (this *Item) Save() {
+	o := orm.NewOrm()
+
+	//判断是新建还是更新
+	if this.Id == 0 {
+		_ ,err := o.Insert(this)
+		if err != nil {
+			beego.Error(err.Error())
+			err = fmt.Errorf("%s", "新增数据失败")
+		}
+	} else {
+		item := Item{Id: this.Id}
+		if o.Read(&item) == nil {
+			item = *this
+			item.Id = this.Id
+			if num, err := o.Update(&item); err == nil {
+				fmt.Println(num)
+			}
+		}
+	}
 }

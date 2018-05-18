@@ -98,6 +98,69 @@ func (u *ItemController) MyList() {
 
 }
 
+// @Title MyList
+// @Description detail
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.item
+// @router /detail [post]
+func (this *ItemController) Detail() {
+	json := consts.Json{}
+	_ ,err := consts.IsLogin(this.Controller)
+	if err != nil {
+		this.Abort("403")
+	} else {
+		item_id,_ := this.GetInt("item_id")
+		_,item := models.GetOneItem(item_id)
+
+
+		json.SetData(item)
+		this.Data["json"] = json.VendorOk()
+		this.ServeJSON()
+	}
+
+
+}
+
+// @Title MyList
+// @Description update
+// @Param	body		body 	models.User	true		"body for user content"
+// @Success 200 {int} models.item
+// @router /update [post]
+func (this *ItemController) Update() {
+	json := consts.Json{}
+
+	_ ,err := consts.IsLogin(this.Controller)
+	if err != nil {
+		this.Abort("403")
+	} else {
+
+		item_id,_ := this.GetInt("item_id")
+		item_name := this.GetString("item_name")
+		item_desc := this.GetString("item_description")
+		password := this.GetString("password")
+		ret,item := models.GetOneItem(item_id)
+		if ret == false {
+			json.Set(500,"项目不存在")
+			this.Data["json"] = json.VendorError()
+			this.ServeJSON()
+		} else {
+			item.Title = item_name
+			item.Description = item_desc
+			item.Password = password
+
+			item.Save()
+
+			this.Data["json"] = json.VendorOk()
+			this.ServeJSON()
+		}
+
+
+
+	}
+
+
+}
+
 
 // @Title add item
 // @Description add item
