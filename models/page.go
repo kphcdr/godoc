@@ -18,12 +18,12 @@ type Page struct {
 	CreatedAt time.Time `orm:"auto_now_add;type(datetime)" json:"addtime"`
 }
 
-func GetPagesByItemId(id int) ([]*Page) {
+func GetPagesByItemId(id int,keyword string) ([]*Page) {
 
 	o := orm.NewOrm()
 	var pages []*Page
 
-	num,err :=o.QueryTable("page").Filter("item_id", id).Filter("cat_id",0).All(&pages)
+	num,err :=o.QueryTable("page").Filter("item_id", id).Filter("cat_id",0).Filter("page_content__icontains",keyword).All(&pages)
 	fmt.Printf("Returned Rows Num: %d, %s, %d", num, err,id)
 
 	return pages

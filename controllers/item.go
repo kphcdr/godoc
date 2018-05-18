@@ -49,10 +49,11 @@ func (u *ItemController) Info() {
 
 	json := consts.Json{}
 	id,_ := u.GetInt("item_id")
+	keyword := u.GetString("keyword")
 	uid := u.GetSession(consts.SESSION_UID)
 
 	_,item := models.GetOneItem(id)
-	itemInfo := item.GetItemInfo()
+	itemInfo := item.GetItemInfo(keyword)
 
 	//是否登录
 	if uid == nil {

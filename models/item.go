@@ -20,7 +20,7 @@ type Item struct {
 
 type ItemInfo struct {
 	Id          int `json:"item_id"`
-	Title 	string `json:"item_domain"`
+	Title 	string `json:"item_title"`
 	IsArchived string `json:"is_archived"`
 	DefaultPageId	string `json:"default_page_id"`
 	DefaultCatId2	string `json:"default_cat_id2"`
@@ -40,20 +40,20 @@ type Menu struct {
 type UnreadCount struct {
 
 }
-func (this *Item) GetItemInfo() (ItemInfo) {
+func (this *Item) GetItemInfo(keyword string) (ItemInfo) {
 	var itemInfo ItemInfo
 	itemInfo.Id = this.Id
 	itemInfo.ItemType = this.Type
 	itemInfo.IsLogin = false
 	itemInfo.ItemPermn = false
 	itemInfo.ItemCreator = false
-	itemInfo.Menu = itemInfo.GetMenu()
+	itemInfo.Menu = itemInfo.GetMenu(keyword)
 	return itemInfo
 }
 
-func (this *ItemInfo) GetMenu()(Menu) {
+func (this *ItemInfo) GetMenu(keyword string)(Menu) {
 	var menu Menu
-	menu.Page = GetPagesByItemId(this.Id)
+	menu.Page = GetPagesByItemId(this.Id,keyword)
 	menu.Catalogs = GetCatalogsByItemId(this.Id)
 	return menu
 }
