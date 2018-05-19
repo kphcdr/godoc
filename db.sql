@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.21)
 # Database: showdoc
-# Generation Time: 2018-05-19 05:59:27 +0000
+# Generation Time: 2018-05-19 06:17:59 +0000
 # ************************************************************
 
 
@@ -68,7 +68,7 @@ CREATE TABLE `page` (
   `author_uid` int(11) DEFAULT NULL,
   `cat_id` int(11) NOT NULL,
   `page_title` varchar(255) DEFAULT NULL,
-  `page_content` varchar(255) DEFAULT NULL,
+  `page_content` text,
   `s_number` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `page_comments` text,
