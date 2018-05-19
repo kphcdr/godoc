@@ -7,7 +7,7 @@
           <ul class="inline pull-right">
           <li ><router-link :to="link">{{link_text}}</router-link></li>
                 </ul>
-          </div>  
+          </div>
         </div>
 
       <el-carousel :height="height" :autoplay="false" arrow="always">
@@ -17,10 +17,6 @@
               <img src="static/logo/b_64.png" alt="">
               <h2>{{$t("section_title1")}}</h2>
               <p><span v-html="$t('section_description1')"></span></p>
-              <p>
-                  <a class="el-button " href="https://www.showdoc.cc/demo" target="_blank">{{$t("demo")}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a class="el-button" href="https://www.showdoc.cc/help" target="_blank" >{{$t("help")}}&nbsp;</i></a>
-              </p>
           </div>
 
         </el-carousel-item>
@@ -98,7 +94,7 @@ export default {
     getHeight(){
        if (window.innerHeight){
           var winHeight = window.innerHeight;
-       }   
+       }
        else if ((document.body) && (document.body.clientHeight)){
           var winHeight = document.body.clientHeight;
        }
@@ -124,16 +120,16 @@ export default {
 <style scoped>
 
 
-  .el-carousel__item { 
-    text-align: center; 
-    font: 25px "Microsoft Yahei"; 
+  .el-carousel__item {
+    text-align: center;
+    font: 25px "Microsoft Yahei";
     color: #fff;
   }
 
   .header{
    padding-right: 100px;
    padding-top: 30px;
-   font-size: 18px; 
+   font-size: 18px;
    position: fixed;
       right: 0;
       left: 0;
