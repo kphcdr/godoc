@@ -5,4 +5,4 @@ go语言版本的 showdoc
 
 
 
-[线上体验地址](http://godoc.kphcdr.com)
+已弃用 [线上体验地址](http://godoc.kphcdr.com) 
